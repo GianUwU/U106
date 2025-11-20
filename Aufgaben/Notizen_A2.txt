@@ -1,0 +1,9 @@
+Verbindungen über Fremdschlüssel: Lernender - Klasse, Klasse - Lehrperson, KlHatFa - Fach/Lehrperson/Raum.
+
+LEFT JOIN für „ohne Daten“-Abfragen: z. B. Lehrpersonen ohne Unterricht.
+
+LIKE für flexible Muster: z. B. alle Klassen, die mit „INF2“ beginnen.
+
+Sortierung: Kombinierte ORDER BY für mehrstufige Sortierung (z. B. Klasse - Nachname - Vorname).
+
+Aggregationen pro Gruppe: z. B. Anzahl Lernende pro Klasse oder Fächer pro Lehrperson.

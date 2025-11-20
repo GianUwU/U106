@@ -1,4 +1,9 @@
 1. SQL Online Nutzen um Bike Lager Tabelle zu Laden
-2. Aufgabenserie 1 Lesen und Anweisungen Folgen
+2. Online Toutorial + Lehrperson Input -> Generelle_Notizen.txt
+3. Aufgabenserie 1 Lesen und Anweisungen Folgen
 -> Aufgabenserie_1.txt
 -> Notizen_A1.txt
+
+4. Aufgabenserie 2 Lesen und Anweisungen Folgen
+-> Aufgabenserie_2.txt
+-> Notizen_A2.txt

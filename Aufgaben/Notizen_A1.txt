@@ -1,5 +1,5 @@
 Grundstruktur:
-SELECT ... FROM ... WHERE ...
+SELECT ... FROM ... JOIN ... WHERE ...
 
 SELECT - Daten abrufen
 

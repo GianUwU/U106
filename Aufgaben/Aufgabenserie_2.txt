@@ -1,0 +1,60 @@
+1: Klassenliste (Lernende mit Klassen)
+SELECT Lernender.Vorname, Lernender.Nachname, Klasse.Bez
+FROM Lernender
+JOIN LeIstInKl ON Lernender.LernenderId = LeIstInKl.fk_LernenderId
+JOIN Klasse ON LeIstInKl.fk_KlasseId = Klasse.KlasseId
+ORDER BY Klasse.Bez, Lernender.Nachname, Lernender.Vorname;
+
+2: Klassenlehrpersonen
+SELECT Klasse.Bez, Lehrperson.Vorname, Lehrperson.Nachname
+FROM Klasse
+JOIN Lehrperson ON Klasse.fk_LehrpersonId = Lehrperson.LehrpersonId
+ORDER BY Klasse.Bez;
+
+3: Anzahl Lernende pro Klasse
+SELECT Klasse.Bez, COUNT(LeIstInKl.fk_LernenderId) AS Anzahl
+FROM Klasse
+LEFT JOIN LeIstInKl ON Klasse.KlasseId = LeIstInKl.fk_KlasseId
+GROUP BY Klasse.Bez
+ORDER BY Klasse.Bez;
+
+4: Anzahl Fächer pro Lehrperson
+SELECT Lehrperson.Vorname, Lehrperson.Nachname, COUNT(KlHatFa.fk_FachId) AS AnzahlFaecher
+FROM Lehrperson
+LEFT JOIN KlHatFa ON Lehrperson.LehrpersonId = KlHatFa.fk_LehrpersonId
+GROUP BY Lehrperson.LehrpersonId
+ORDER BY AnzahlFaecher DESC;
+
+5: Fächerliste der „INF2“-Klassen
+SELECT Klasse.Bez, Fach.KurzBez
+FROM Klasse
+JOIN KlHatFa ON Klasse.KlasseId = KlHatFa.fk_KlasseId
+JOIN Fach ON KlHatFa.fk_FachId = Fach.FachId
+WHERE Klasse.Bez LIKE 'INF2%'
+ORDER BY Klasse.Bez, Fach.KurzBez;
+
+6: Unterrichtsinformationen der Klasse „MMA1a“
+SELECT Fach.KurzBez, Fach.LangBez, Raum.Bez AS Raum, Lehrperson.Vorname, Lehrperson.Nachname
+FROM Klasse
+JOIN KlHatFa ON Klasse.KlasseId = KlHatFa.fk_KlasseId
+JOIN Fach ON KlHatFa.fk_FachId = Fach.FachId
+JOIN Raum ON KlHatFa.fk_RaumId = Raum.RaumId
+JOIN Lehrperson ON KlHatFa.fk_LehrpersonId = Lehrperson.LehrpersonId
+WHERE Klasse.Bez = 'MMA1a'
+ORDER BY Fach.KurzBez;
+
+7: Lehrpersonen ohne Unterricht
+SELECT Lehrperson.Vorname, Lehrperson.Nachname
+FROM Lehrperson
+LEFT JOIN KlHatFa ON Lehrperson.LehrpersonId = KlHatFa.fk_LehrpersonId
+WHERE KlHatFa.KlHatFaId IS NULL
+ORDER BY Lehrperson.Nachname, Lehrperson.Vorname;
+
+8: Klassenlehrpersonen ohne Unterricht
+SELECT Klasse.Bez, Lehrperson.Vorname, Lehrperson.Nachname
+FROM Klasse
+JOIN Lehrperson ON Klasse.fk_LehrpersonId = Lehrperson.LehrpersonId
+LEFT JOIN KlHatFa ON Klasse.KlasseId = KlHatFa.fk_KlasseId
+                     AND Lehrperson.LehrpersonId = KlHatFa.fk_LehrpersonId
+WHERE KlHatFa.KlHatFaId IS NULL
+ORDER BY Klasse.Bez;

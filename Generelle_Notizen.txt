@@ -1,0 +1,10 @@
+Viele Online Forum Formatieren ihren Code
+
+Select ...
+From ...
+Where ...
+
+(übereinander) was ich selbst auch ästhetischer finde.
+
+Es gibt Left join und Right Join,
+basierend auf welche Tabelle mit welcher Tabelle verbunden wird. -> sql_joins.png
