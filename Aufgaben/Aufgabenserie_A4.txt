@@ -1,0 +1,42 @@
+1: Alle bestellten Artikel von «Lea Fuchs» nach Bestelldatum
+SELECT k.Vorname, k.Nachname, o.Bez AS Ort, b.Datum, a.Bez AS Artikel, a.Preis
+FROM Bestellung b
+JOIN Kunde k ON b.fk_KundeId = k.KundeId
+JOIN BestehtAus ba ON ba.fk_BestellungId = b.BestellungId
+JOIN Artikel a ON ba.fk_ArtikelId = a.ArtikelId
+JOIN Ort o ON k.fk_OrtId = o.OrtId
+WHERE k.Vorname = 'Lea' AND k.Nachname = 'Fuchs'
+ORDER BY b.Datum ASC;
+
+2: Anzahl Bestellungen pro Kunde
+SELECT k.Vorname, k.Nachname, COUNT(b.BestellungId) AS AnzahlBestellungen
+FROM Kunde k
+LEFT JOIN Bestellung b ON k.KundeId = b.fk_KundeId
+GROUP BY k.KundeId, k.Vorname, k.Nachname
+ORDER BY AnzahlBestellungen DESC, k.Nachname, k.Vorname;
+
+3: Letzte (neueste) Bestellung
+SELECT TOP 1 k.Vorname, k.Nachname, o.Bez AS Ort, b.Datum, COUNT(ba.fk_ArtikelId) AS AnzahlArtikel, a.HerstellerId, a.Bez AS Artikel, a.Preis, l.Name AS Lieferant
+FROM Bestellung b
+JOIN Kunde k ON b.fk_KundeId = k.KundeId
+JOIN BestehtAus ba ON ba.fk_BestellungId = b.BestellungId
+JOIN Artikel a ON ba.fk_ArtikelId = a.ArtikelId
+JOIN Lieferant l ON a.fk_LieferantId = l.LieferantId
+JOIN Ort o ON k.fk_OrtId = o.OrtId
+ORDER BY b.Datum DESC;
+
+4: Kundenumsätze (Summe aller Artikelpreise)
+SELECT k.Vorname, k.Nachname, FORMAT(SUM(a.Preis * ba.Anzahl), 'N2', 'de-de') AS Umsatz
+FROM Kunde k
+JOIN Bestellung b ON k.KundeId = b.fk_KundeId
+JOIN BestehtAus ba ON b.BestellungId = ba.fk_BestellungId
+JOIN Artikel a ON ba.fk_ArtikelId = a.ArtikelId
+GROUP BY k.KundeId, k.Vorname, k.Nachname
+ORDER BY SUM(a.Preis * ba.Anzahl) DESC;
+
+5: Artikel-Bestellstatistik (inklusive Artikel, die nie bestellt wurden)
+SELECT a.Bez AS Artikel, COUNT(ba.fk_BestellungId) AS AnzahlBestellungen
+FROM Artikel a
+LEFT JOIN BestehtAus ba ON a.ArtikelId = ba.fk_ArtikelId
+GROUP BY a.ArtikelId, a.Bez
+ORDER BY AnzahlBestellungen DESC, a.Bez;

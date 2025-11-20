@@ -1,4 +1,4 @@
-1: Klassenliste (Lernende mit Klassen)
+1: Klassenliste
 SELECT Lernender.Vorname, Lernender.Nachname, Klasse.Bez
 FROM Lernender
 JOIN LeIstInKl ON Lernender.LernenderId = LeIstInKl.fk_LernenderId
@@ -11,14 +11,14 @@ FROM Klasse
 JOIN Lehrperson ON Klasse.fk_LehrpersonId = Lehrperson.LehrpersonId
 ORDER BY Klasse.Bez;
 
-3: Anzahl Lernende pro Klasse
+3: Lernende pro Klasse
 SELECT Klasse.Bez, COUNT(LeIstInKl.fk_LernenderId) AS Anzahl
 FROM Klasse
 LEFT JOIN LeIstInKl ON Klasse.KlasseId = LeIstInKl.fk_KlasseId
 GROUP BY Klasse.Bez
 ORDER BY Klasse.Bez;
 
-4: Anzahl Fächer pro Lehrperson
+4: Fächer pro Lehrperson
 SELECT Lehrperson.Vorname, Lehrperson.Nachname, COUNT(KlHatFa.fk_FachId) AS AnzahlFaecher
 FROM Lehrperson
 LEFT JOIN KlHatFa ON Lehrperson.LehrpersonId = KlHatFa.fk_LehrpersonId
@@ -54,7 +54,6 @@ ORDER BY Lehrperson.Nachname, Lehrperson.Vorname;
 SELECT Klasse.Bez, Lehrperson.Vorname, Lehrperson.Nachname
 FROM Klasse
 JOIN Lehrperson ON Klasse.fk_LehrpersonId = Lehrperson.LehrpersonId
-LEFT JOIN KlHatFa ON Klasse.KlasseId = KlHatFa.fk_KlasseId
-                     AND Lehrperson.LehrpersonId = KlHatFa.fk_LehrpersonId
+LEFT JOIN KlHatFa ON Klasse.KlasseId = KlHatFa.fk_KlasseId AND Lehrperson.LehrpersonId = KlHatFa.fk_LehrpersonId
 WHERE KlHatFa.KlHatFaId IS NULL
 ORDER BY Klasse.Bez;

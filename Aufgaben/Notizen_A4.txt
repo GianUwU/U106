@@ -1,0 +1,19 @@
+JOIN / LEFT JOIN - Tabellen verbinden, LEFT JOIN für „auch ohne Daten“
+
+COUNT() - Anzahl Zeilen, Aggregation
+
+SUM() - Summe von Zahlen (z.B. Umsatz)
+
+FORMAT(..., 'N2', 'de-de') - Zahlen formatiert mit Tausendertrennzeichen und 2 Nachkommastellen (SQL Server)
+
+TOP 1 - Nur oberste Zeile (neueste Bestellung)
+
+Wichtige Konzepte im ComputerShop
+
+Kunde – Bestellung – BestehtAus – Artikel – Hersteller/Lieferant
+
+Umsatzberechnung: SUM(a.Preis * ba.Anzahl)
+
+Artikel-Bestellstatistik: LEFT JOIN, um Artikel ohne Bestellungen einzubeziehen
+
+Sortierungen: ASC / DESC, bei mehreren Spalten: zuerst nach Anzahl, dann Name

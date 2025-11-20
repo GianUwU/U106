@@ -1,0 +1,48 @@
+1,2,3: Alles anzeigen
+SELECT * FROM Artikel;
+SELECT * FROM Kunde;
+SELECT * FROM Kauft;
+
+4: Kunden mit Käufen und Artikel
+SELECT Kunde.Vorname, Kunde.Nachname, Artikel.Bez, Artikel.Preis
+FROM Kauft
+JOIN Kunde ON Kauft.fk_KundeId = Kunde.KundeId
+JOIN Artikel ON Kauft.fk_ArtikelId = Artikel.ArtikelId;
+
+5: Artikel einer bestimmten Gruppe
+SELECT Artikel.Bez, Artikel.Preis
+FROM Artikel
+JOIN Gruppe ON Artikel.fk_GruppeId = Gruppe.GruppeId
+WHERE Gruppe.Bez = 'Werkzeug';
+
+6: Alle Käufe eines bestimmten Kunden
+SELECT Kunde.Vorname, Kunde.Nachname, Artikel.Bez, Artikel.Preis
+FROM Kauft
+JOIN Kunde ON Kauft.fk_KundeId = Kunde.KundeId
+JOIN Artikel ON Kauft.fk_ArtikelId = Artikel.ArtikelId
+WHERE Kunde.Nachname = 'Lingg';
+
+7: Durchschnittspreis pro Gruppe
+SELECT Gruppe.Bez, AVG(Artikel.Preis) AS Durchschnittspreis
+FROM Artikel
+JOIN Gruppe ON Artikel.fk_GruppeId = Gruppe.GruppeId
+GROUP BY Gruppe.Bez;
+
+8: Anzahl Artikel pro Gruppe
+SELECT Gruppe.Bez, COUNT(Artikel.ArtikelId) AS AnzahlArtikel
+FROM Artikel
+JOIN Gruppe ON Artikel.fk_GruppeId = Gruppe.GruppeId
+GROUP BY Gruppe.Bez;
+
+9: Kunden ohne Käufe
+SELECT Kunde.Vorname, Kunde.Nachname
+FROM Kunde
+LEFT JOIN Kauft ON Kunde.KundeId = Kauft.fk_KundeId
+WHERE Kauft.KauftId IS NULL;
+
+10: Gesamtpreis pro Kunde
+SELECT Kunde.Vorname, Kunde.Nachname, SUM(Artikel.Preis) AS Gesamtbetrag
+FROM Kauft
+JOIN Kunde ON Kauft.fk_KundeId = Kunde.KundeId
+JOIN Artikel ON Kauft.fk_ArtikelId = Artikel.ArtikelId
+GROUP BY Kunde.KundeId;

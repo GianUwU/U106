@@ -6,5 +6,10 @@ Where ...
 
 (übereinander) was ich selbst auch ästhetischer finde.
 
+SQL Befehle können sich ändern basierend auf SQL enviroment z.b "go" funktioniert nicht immer.
+
 Es gibt Left join und Right Join,
 basierend auf welche Tabelle mit welcher Tabelle verbunden wird. -> sql_joins.png
+
+In vielen fällen bin ich sehr nahe an der richtigen Lösung aber es geht nicht richtig,
+aber chatgpt findet dann fast immer heraus was ich versuche.

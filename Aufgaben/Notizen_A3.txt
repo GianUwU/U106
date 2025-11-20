@@ -1,0 +1,9 @@
+Verbindungen über Fremdschlüssel: Kauft - Kunde/Artikel, Artikel - Gruppe, Kunde - Ort.
+
+LEFT JOIN für „ohne Daten“-Abfragen: z. B. Kunden ohne Käufe.
+
+Filterung nach Gruppe oder Kunde: WHERE Gruppe.Bez = '...' oder WHERE Kunde.Nachname = '...'.
+
+Aggregationen pro Gruppe oder Kunde: z. B. Durchschnittspreis pro Gruppe, Gesamtpreis pro Kunde.
+
+Mehrstufige Sortierung: Kombiniertes ORDER BY möglich für Name, Preis etc.
