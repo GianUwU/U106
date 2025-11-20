@@ -1,0 +1,32 @@
+Grundstruktur:
+SELECT ... FROM ... WHERE ...
+
+SELECT - Daten abrufen
+
+FROM - Tabelle auswählen
+
+WHERE - Zeilen filtern
+
+JOIN / INNER JOIN - Tabellen verbinden, nur passende Zeilen
+
+LEFT JOIN - Tabellen verbinden, alle Zeilen der linken Tabelle behalten
+
+GROUP BY - Zeilen nach Spalten gruppieren
+
+ORDER BY - Zeilen sortieren (ASC / DESC)
+
+UPDATE - Daten ändern
+
+SET - Spalten mit neuen Werten setzen
+
+AVG() - Durchschnitt berechnen
+
+COUNT() - Anzahl Zeilen / Werte zählen
+
+SUM() - Summe berechnen
+
+MAX() - Maximalwert
+
+MIN() - Minimalwert
+
+AS - Spalten aliasieren / umbenennen

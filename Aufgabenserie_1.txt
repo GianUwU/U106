@@ -1,0 +1,118 @@
+1: Tabellen anzeigen
+SELECT * FROM Typ;
+SELECT * FROM Marke;
+SELECT * FROM Bike;
+
+2: Alle Bikes einer Marke "Flyer"
+SELECT Bike.Bez
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+WHERE Marke.Bez = 'Flyer';
+
+3: Alle Mountainbikes der Firma "Scott"
+SELECT Bike.Bez, Preis
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+JOIN Typ ON Bike.fk_TypId = Typ.TypId
+WHERE Marke.Bez = 'Scott' AND Typ.Bez = 'Mountainbike';
+
+4: Alle Bikes ohne Id-Spalte
+SELECT Marke.Bez, Bike.Bez, Preis
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId;
+
+5: Bikes sortiert nach dem Preis (höchster zuerst)
+SELECT Marke.Bez, Bike.Bez, Preis
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+ORDER BY Preis DESC;
+
+6: Alle Bikes mit allen Informationen
+SELECT Marke.Bez, Bike.Bez, Typ.Bez, Preis
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+JOIN Typ ON Bike.fk_TypId = Typ.TypId
+ORDER BY Marke.Bez, Typ.Bez, Bike.Bez;
+
+7: Die Bikes der Firma "Wheeler" (Preis absteigend)
+SELECT Bike.Bez, Preis
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+WHERE Marke.Bez = 'Wheeler'
+ORDER BY Preis DESC;
+
+8: Durchschnittspreis der E-Bikes
+SELECT AVG(Preis) AS Durchschnittspreis
+FROM Bike
+JOIN Typ ON Bike.fk_TypId = Typ.TypId
+WHERE Typ.Bez = 'E-Bike';
+
+9: Anzahl Bikes pro Marke (absteigend nach Anzahl)
+SELECT Marke.Bez, COUNT(Bike.BikeId) AS Anzahl
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+GROUP BY Marke.Bez
+ORDER BY Anzahl DESC;
+
+10: Typen ohne Bikes
+SELECT Bez
+FROM Typ
+LEFT JOIN Bike ON Typ.TypId = Bike.fk_TypId
+WHERE Bike.BikeId IS NULL;
+
+11: Anzahl Bikes pro Typ (aufsteigend nach Anzahl, dann Typname)
+SELECT Typ.Bez, COUNT(Bike.BikeId) AS Anzahl
+FROM Typ
+LEFT JOIN Bike ON Typ.TypId = Bike.fk_TypId
+GROUP BY Typ.Bez
+ORDER BY Anzahl ASC, Typ.Bez ASC;
+
+12: Mountainbike-Durchschnittspreis pro Marke (absteigend)
+SELECT Marke.Bez, AVG(Preis) AS Durchschnittspreis
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+JOIN Typ ON Bike.fk_TypId = Typ.TypId
+WHERE Typ.Bez = 'Mountainbike'
+GROUP BY Marke.Bez
+ORDER BY Durchschnittspreis DESC;
+
+13: Preisstatistik pro Marke (max, min, sum)
+SELECT Marke.Bez,
+       MAX(Preis) AS Hoechstpreis,
+       MIN(Preis) AS Tiefstpreis,
+       SUM(Preis) AS Gesamtpreis
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+GROUP BY Marke.Bez
+ORDER BY Marke.Bez ASC;
+
+14: Marken mit E-Bikes (Anzahl absteigend)
+SELECT Marke.Bez, COUNT(Bike.BikeId) AS Anzahl
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+JOIN Typ ON Bike.fk_TypId = Typ.TypId
+WHERE Typ.Bez = 'E-Bike'
+GROUP BY Marke.Bez
+ORDER BY Anzahl DESC;
+
+15: Preis ohne MWST und MWST (7.7%)
+SELECT Marke.Bez, Bike.Bez, Preis AS Preis_mit_MWST,
+       Preis / 1.077 AS Preis_ohne_MWST,
+       Preis - Preis / 1.077 AS MWST
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId;
+
+16: Gewinn (15% Marge)
+SELECT Marke.Bez, Bike.Bez, Preis,
+       Preis * 0.15 AS Gewinn
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId;
+
+17: Aktion (nicht E-Bike, Preis > 1000, Rabatt 200)
+SELECT Marke.Bez, Bike.Bez, Preis AS Normalpreis,
+       Preis - 200 AS Aktionspreis
+FROM Bike
+JOIN Marke ON Bike.fk_MarkeId = Marke.MarkeId
+JOIN Typ ON Bike.fk_TypId = Typ.TypId
+WHERE Typ.Bez != 'E-Bike' AND Preis > 1000
+ORDER BY Marke.Bez, Bike.Bez;

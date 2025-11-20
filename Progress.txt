@@ -1,0 +1,4 @@
+1. SQL Online Nutzen um Bike Lager Tabelle zu Laden
+2. Aufgabenserie 1 Lesen und Anweisungen Folgen
+-> Aufgabenserie_1.txt
+-> Notizen_A1.txt
