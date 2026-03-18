@@ -13,3 +13,15 @@ basierend auf welche Tabelle mit welcher Tabelle verbunden wird. -> sql_joins.pn
 
 In vielen fällen bin ich sehr nahe an der richtigen Lösung aber es geht nicht richtig,
 aber chatgpt findet dann fast immer heraus was ich versuche.
+
+
+Abkürzungen:
+
+SQL – Structured Query Language
+DDL – Data Definition Language (CREATE, ALTER, DROP)
+DML – Data Manipulation Language (INSERT, UPDATE, DELETE)
+
+PK – Primary Key
+FK – Foreign Key
+UK – Unique Key
+AI – Auto Increment
